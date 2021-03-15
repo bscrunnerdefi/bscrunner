@@ -1,0 +1,2539 @@
+{
+  "contractName": "Random",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"/Users/alexei120991/Documents/Project/RUNNER/alex/runner-manager/contracts/Random.sol\":\"Random\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/alexei120991/Documents/Project/RUNNER/alex/runner-manager/contracts/Random.sol\":{\"keccak256\":\"0x388bff19c9f56d884d93311f79bc1e1bc950e1a2bc8f1b707e47d04b2f7e911b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ff9edcb92402f47589d5ece9fe306fbc4797212375c449f95162602a5764648f\",\"dweb:/ipfs/QmaQPWPLzbv6ZZ7DALHGbAXjUykVyecXjsT4roqoPAfxm7\"]}},\"version\":1}",
+  "bytecode": "0x60566037600b82828239805160001a607314602a57634e487b7160e01b600052600060045260246000fd5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220bf216fdcb104f3fb828b8139d42a59bad58b96757d4a7997590f9c7f6453791764736f6c63430008000033",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea2646970667358221220bf216fdcb104f3fb828b8139d42a59bad58b96757d4a7997590f9c7f6453791764736f6c63430008000033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "91:793:1:-:0;;;;;;;;;;;;;;;-1:-1:-1;;;91:793:1;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "91:793:1:-:0;;;;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.6.0;\npragma experimental ABIEncoderV2;\nlibrary Random {\n\n  struct Seed {\n    uint blockNumber;\n  }\n\n  function isInitialized(Seed memory seed) internal pure returns (bool) {\n    return seed.blockNumber > 0;\n  }\n  \n  function isReady(Seed memory seed) internal view returns (bool) {\n    return block.number > seed.blockNumber;\n  }\n    \n  function init(Seed storage seed) internal {\n    require(!isInitialized(seed), \"Seed already initialized\");\n    seed.blockNumber = block.number;\n  }\n  \n  function get(Seed storage seed) internal view returns (bytes32) {\n    require(isInitialized(seed), \"Seed is not initialized\");\n    require(block.number > seed.blockNumber, \"Wait one more block to open this Seed\");\n    return blockhash(seed.blockNumber + 1);\n  }\n\n  function reset(Seed storage seed) internal {\n    seed.blockNumber = 0;\n  }\n\n}",
+  "sourcePath": "/Users/alexei120991/Documents/Project/RUNNER/alex/runner-manager/contracts/Random.sol",
+  "ast": {
+    "absolutePath": "/Users/alexei120991/Documents/Project/RUNNER/alex/runner-manager/contracts/Random.sol",
+    "exportedSymbols": {
+      "Random": [
+        748
+      ]
+    },
+    "id": 749,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 647,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:1"
+      },
+      {
+        "id": 648,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "57:33:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 748,
+        "linearizedBaseContracts": [
+          748
+        ],
+        "name": "Random",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Random.Seed",
+            "id": 651,
+            "members": [
+              {
+                "constant": false,
+                "id": 650,
+                "mutability": "mutable",
+                "name": "blockNumber",
+                "nodeType": "VariableDeclaration",
+                "scope": 651,
+                "src": "129:16:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 649,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "129:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Seed",
+            "nodeType": "StructDefinition",
+            "scope": 748,
+            "src": "111:39:1",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 664,
+              "nodeType": "Block",
+              "src": "224:38:1",
+              "statements": [
+                {
+                  "expression": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 662,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 659,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 654,
+                        "src": "237:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                          "typeString": "struct Random.Seed memory"
+                        }
+                      },
+                      "id": 660,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "237:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": ">",
+                    "rightExpression": {
+                      "hexValue": "30",
+                      "id": 661,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "256:1:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "src": "237:20:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 658,
+                  "id": 663,
+                  "nodeType": "Return",
+                  "src": "230:27:1"
+                }
+              ]
+            },
+            "id": 665,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isInitialized",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 655,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 654,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 665,
+                  "src": "177:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 653,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 652,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "177:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "177:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "176:18:1"
+            },
+            "returnParameters": {
+              "id": 658,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 657,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 665,
+                  "src": "218:4:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 656,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "218:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "217:6:1"
+            },
+            "scope": 748,
+            "src": "154:108:1",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 679,
+              "nodeType": "Block",
+              "src": "332:49:1",
+              "statements": [
+                {
+                  "expression": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 677,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 673,
+                        "name": "block",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4294967292,
+                        "src": "345:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_block",
+                          "typeString": "block"
+                        }
+                      },
+                      "id": 674,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "number",
+                      "nodeType": "MemberAccess",
+                      "src": "345:12:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": ">",
+                    "rightExpression": {
+                      "expression": {
+                        "id": 675,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 668,
+                        "src": "360:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                          "typeString": "struct Random.Seed memory"
+                        }
+                      },
+                      "id": 676,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "360:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "345:31:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 672,
+                  "id": 678,
+                  "nodeType": "Return",
+                  "src": "338:38:1"
+                }
+              ]
+            },
+            "id": 680,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isReady",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 669,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 668,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 680,
+                  "src": "285:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 667,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 666,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "285:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "285:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "284:18:1"
+            },
+            "returnParameters": {
+              "id": 672,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 671,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 680,
+                  "src": "326:4:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 670,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "326:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "325:6:1"
+            },
+            "scope": 748,
+            "src": "268:113:1",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 701,
+              "nodeType": "Block",
+              "src": "431:105:1",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 690,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "445:20:1",
+                        "subExpression": {
+                          "arguments": [
+                            {
+                              "id": 688,
+                              "name": "seed",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 683,
+                              "src": "460:4:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                                "typeString": "struct Random.Seed storage pointer"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                                "typeString": "struct Random.Seed storage pointer"
+                              }
+                            ],
+                            "id": 687,
+                            "name": "isInitialized",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 665,
+                            "src": "446:13:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_internal_pure$_t_struct$_Seed_$651_memory_ptr_$returns$_t_bool_$",
+                              "typeString": "function (struct Random.Seed memory) pure returns (bool)"
+                            }
+                          },
+                          "id": 689,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "446:19:1",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "5365656420616c726561647920696e697469616c697a6564",
+                        "id": 691,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "467:26:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_43825295dc964d5ef548a91895ecb2b7b4478f46c17905a5e4eebb68ad4b6afe",
+                          "typeString": "literal_string \"Seed already initialized\""
+                        },
+                        "value": "Seed already initialized"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_43825295dc964d5ef548a91895ecb2b7b4478f46c17905a5e4eebb68ad4b6afe",
+                          "typeString": "literal_string \"Seed already initialized\""
+                        }
+                      ],
+                      "id": 686,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "437:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 692,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "437:57:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 693,
+                  "nodeType": "ExpressionStatement",
+                  "src": "437:57:1"
+                },
+                {
+                  "expression": {
+                    "id": 699,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 694,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 683,
+                        "src": "500:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                          "typeString": "struct Random.Seed storage pointer"
+                        }
+                      },
+                      "id": 696,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "500:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 697,
+                        "name": "block",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4294967292,
+                        "src": "519:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_block",
+                          "typeString": "block"
+                        }
+                      },
+                      "id": 698,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "number",
+                      "nodeType": "MemberAccess",
+                      "src": "519:12:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "500:31:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 700,
+                  "nodeType": "ExpressionStatement",
+                  "src": "500:31:1"
+                }
+              ]
+            },
+            "id": 702,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "init",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 684,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 683,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 702,
+                  "src": "403:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 682,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 681,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "403:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "403:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "402:19:1"
+            },
+            "returnParameters": {
+              "id": 685,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "431:0:1"
+            },
+            "scope": 748,
+            "src": "389:147:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 733,
+              "nodeType": "Block",
+              "src": "606:197:1",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "id": 712,
+                            "name": "seed",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 705,
+                            "src": "634:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          ],
+                          "id": 711,
+                          "name": "isInitialized",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 665,
+                          "src": "620:13:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_struct$_Seed_$651_memory_ptr_$returns$_t_bool_$",
+                            "typeString": "function (struct Random.Seed memory) pure returns (bool)"
+                          }
+                        },
+                        "id": 713,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "620:19:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "53656564206973206e6f7420696e697469616c697a6564",
+                        "id": 714,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "641:25:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_11b41dad3212bab10d26508eb8e1146de9b002e393a97371d4d5bf1dd254964d",
+                          "typeString": "literal_string \"Seed is not initialized\""
+                        },
+                        "value": "Seed is not initialized"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_11b41dad3212bab10d26508eb8e1146de9b002e393a97371d4d5bf1dd254964d",
+                          "typeString": "literal_string \"Seed is not initialized\""
+                        }
+                      ],
+                      "id": 710,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "612:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 715,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "612:55:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 716,
+                  "nodeType": "ExpressionStatement",
+                  "src": "612:55:1"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 722,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 718,
+                            "name": "block",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4294967292,
+                            "src": "681:5:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_block",
+                              "typeString": "block"
+                            }
+                          },
+                          "id": 719,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "number",
+                          "nodeType": "MemberAccess",
+                          "src": "681:12:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": ">",
+                        "rightExpression": {
+                          "expression": {
+                            "id": 720,
+                            "name": "seed",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 705,
+                            "src": "696:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          },
+                          "id": 721,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "blockNumber",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 650,
+                          "src": "696:16:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "681:31:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "57616974206f6e65206d6f726520626c6f636b20746f206f70656e20746869732053656564",
+                        "id": 723,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "714:39:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_a7be9131946eccba807f7b6a78b007895320cd6bc9ad0a532100a3b2512d9b76",
+                          "typeString": "literal_string \"Wait one more block to open this Seed\""
+                        },
+                        "value": "Wait one more block to open this Seed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_a7be9131946eccba807f7b6a78b007895320cd6bc9ad0a532100a3b2512d9b76",
+                          "typeString": "literal_string \"Wait one more block to open this Seed\""
+                        }
+                      ],
+                      "id": 717,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "673:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 724,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "673:81:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 725,
+                  "nodeType": "ExpressionStatement",
+                  "src": "673:81:1"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 730,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 727,
+                            "name": "seed",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 705,
+                            "src": "777:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          },
+                          "id": 728,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "blockNumber",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 650,
+                          "src": "777:16:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "+",
+                        "rightExpression": {
+                          "hexValue": "31",
+                          "id": 729,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "796:1:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_1_by_1",
+                            "typeString": "int_const 1"
+                          },
+                          "value": "1"
+                        },
+                        "src": "777:20:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 726,
+                      "name": "blockhash",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4294967291,
+                      "src": "767:9:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_blockhash_view$_t_uint256_$returns$_t_bytes32_$",
+                        "typeString": "function (uint256) view returns (bytes32)"
+                      }
+                    },
+                    "id": 731,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "767:31:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 709,
+                  "id": 732,
+                  "nodeType": "Return",
+                  "src": "760:38:1"
+                }
+              ]
+            },
+            "id": 734,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "get",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 706,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 705,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 734,
+                  "src": "555:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 704,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 703,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "555:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "555:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "554:19:1"
+            },
+            "returnParameters": {
+              "id": 709,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 708,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 734,
+                  "src": "597:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 707,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "597:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "596:9:1"
+            },
+            "scope": 748,
+            "src": "542:261:1",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 746,
+              "nodeType": "Block",
+              "src": "850:31:1",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 744,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 740,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 737,
+                        "src": "856:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                          "typeString": "struct Random.Seed storage pointer"
+                        }
+                      },
+                      "id": 742,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "856:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "hexValue": "30",
+                      "id": 743,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "875:1:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "src": "856:20:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 745,
+                  "nodeType": "ExpressionStatement",
+                  "src": "856:20:1"
+                }
+              ]
+            },
+            "id": 747,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "reset",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 738,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 737,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 747,
+                  "src": "822:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 736,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 735,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "822:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "822:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "821:19:1"
+            },
+            "returnParameters": {
+              "id": 739,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "850:0:1"
+            },
+            "scope": 748,
+            "src": "807:74:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 749,
+        "src": "91:793:1"
+      }
+    ],
+    "src": "32:852:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/alexei120991/Documents/Project/RUNNER/alex/runner-manager/contracts/Random.sol",
+    "exportedSymbols": {
+      "Random": [
+        748
+      ]
+    },
+    "id": 749,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 647,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.6",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:1"
+      },
+      {
+        "id": 648,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "57:33:1"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "fullyImplemented": true,
+        "id": 748,
+        "linearizedBaseContracts": [
+          748
+        ],
+        "name": "Random",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Random.Seed",
+            "id": 651,
+            "members": [
+              {
+                "constant": false,
+                "id": 650,
+                "mutability": "mutable",
+                "name": "blockNumber",
+                "nodeType": "VariableDeclaration",
+                "scope": 651,
+                "src": "129:16:1",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 649,
+                  "name": "uint",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "129:4:1",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Seed",
+            "nodeType": "StructDefinition",
+            "scope": 748,
+            "src": "111:39:1",
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 664,
+              "nodeType": "Block",
+              "src": "224:38:1",
+              "statements": [
+                {
+                  "expression": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 662,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 659,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 654,
+                        "src": "237:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                          "typeString": "struct Random.Seed memory"
+                        }
+                      },
+                      "id": 660,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "237:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": ">",
+                    "rightExpression": {
+                      "hexValue": "30",
+                      "id": 661,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "256:1:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "src": "237:20:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 658,
+                  "id": 663,
+                  "nodeType": "Return",
+                  "src": "230:27:1"
+                }
+              ]
+            },
+            "id": 665,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isInitialized",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 655,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 654,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 665,
+                  "src": "177:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 653,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 652,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "177:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "177:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "176:18:1"
+            },
+            "returnParameters": {
+              "id": 658,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 657,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 665,
+                  "src": "218:4:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 656,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "218:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "217:6:1"
+            },
+            "scope": 748,
+            "src": "154:108:1",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 679,
+              "nodeType": "Block",
+              "src": "332:49:1",
+              "statements": [
+                {
+                  "expression": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 677,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 673,
+                        "name": "block",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4294967292,
+                        "src": "345:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_block",
+                          "typeString": "block"
+                        }
+                      },
+                      "id": 674,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "number",
+                      "nodeType": "MemberAccess",
+                      "src": "345:12:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": ">",
+                    "rightExpression": {
+                      "expression": {
+                        "id": 675,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 668,
+                        "src": "360:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                          "typeString": "struct Random.Seed memory"
+                        }
+                      },
+                      "id": 676,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "360:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "345:31:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 672,
+                  "id": 678,
+                  "nodeType": "Return",
+                  "src": "338:38:1"
+                }
+              ]
+            },
+            "id": 680,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "isReady",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 669,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 668,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 680,
+                  "src": "285:16:1",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_memory_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 667,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 666,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "285:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "285:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "284:18:1"
+            },
+            "returnParameters": {
+              "id": 672,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 671,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 680,
+                  "src": "326:4:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 670,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "326:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "325:6:1"
+            },
+            "scope": 748,
+            "src": "268:113:1",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 701,
+              "nodeType": "Block",
+              "src": "431:105:1",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 690,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "UnaryOperation",
+                        "operator": "!",
+                        "prefix": true,
+                        "src": "445:20:1",
+                        "subExpression": {
+                          "arguments": [
+                            {
+                              "id": 688,
+                              "name": "seed",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 683,
+                              "src": "460:4:1",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                                "typeString": "struct Random.Seed storage pointer"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                                "typeString": "struct Random.Seed storage pointer"
+                              }
+                            ],
+                            "id": 687,
+                            "name": "isInitialized",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 665,
+                            "src": "446:13:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_internal_pure$_t_struct$_Seed_$651_memory_ptr_$returns$_t_bool_$",
+                              "typeString": "function (struct Random.Seed memory) pure returns (bool)"
+                            }
+                          },
+                          "id": 689,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "446:19:1",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          }
+                        },
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "5365656420616c726561647920696e697469616c697a6564",
+                        "id": 691,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "467:26:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_43825295dc964d5ef548a91895ecb2b7b4478f46c17905a5e4eebb68ad4b6afe",
+                          "typeString": "literal_string \"Seed already initialized\""
+                        },
+                        "value": "Seed already initialized"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_43825295dc964d5ef548a91895ecb2b7b4478f46c17905a5e4eebb68ad4b6afe",
+                          "typeString": "literal_string \"Seed already initialized\""
+                        }
+                      ],
+                      "id": 686,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "437:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 692,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "437:57:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 693,
+                  "nodeType": "ExpressionStatement",
+                  "src": "437:57:1"
+                },
+                {
+                  "expression": {
+                    "id": 699,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 694,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 683,
+                        "src": "500:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                          "typeString": "struct Random.Seed storage pointer"
+                        }
+                      },
+                      "id": 696,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "500:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 697,
+                        "name": "block",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 4294967292,
+                        "src": "519:5:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_block",
+                          "typeString": "block"
+                        }
+                      },
+                      "id": 698,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "number",
+                      "nodeType": "MemberAccess",
+                      "src": "519:12:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "500:31:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 700,
+                  "nodeType": "ExpressionStatement",
+                  "src": "500:31:1"
+                }
+              ]
+            },
+            "id": 702,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "init",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 684,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 683,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 702,
+                  "src": "403:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 682,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 681,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "403:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "403:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "402:19:1"
+            },
+            "returnParameters": {
+              "id": 685,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "431:0:1"
+            },
+            "scope": 748,
+            "src": "389:147:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 733,
+              "nodeType": "Block",
+              "src": "606:197:1",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "arguments": [
+                          {
+                            "id": 712,
+                            "name": "seed",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 705,
+                            "src": "634:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          }
+                        ],
+                        "expression": {
+                          "argumentTypes": [
+                            {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          ],
+                          "id": 711,
+                          "name": "isInitialized",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 665,
+                          "src": "620:13:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_function_internal_pure$_t_struct$_Seed_$651_memory_ptr_$returns$_t_bool_$",
+                            "typeString": "function (struct Random.Seed memory) pure returns (bool)"
+                          }
+                        },
+                        "id": 713,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "kind": "functionCall",
+                        "lValueRequested": false,
+                        "names": [],
+                        "nodeType": "FunctionCall",
+                        "src": "620:19:1",
+                        "tryCall": false,
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "53656564206973206e6f7420696e697469616c697a6564",
+                        "id": 714,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "641:25:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_11b41dad3212bab10d26508eb8e1146de9b002e393a97371d4d5bf1dd254964d",
+                          "typeString": "literal_string \"Seed is not initialized\""
+                        },
+                        "value": "Seed is not initialized"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_11b41dad3212bab10d26508eb8e1146de9b002e393a97371d4d5bf1dd254964d",
+                          "typeString": "literal_string \"Seed is not initialized\""
+                        }
+                      ],
+                      "id": 710,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "612:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 715,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "612:55:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 716,
+                  "nodeType": "ExpressionStatement",
+                  "src": "612:55:1"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 722,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 718,
+                            "name": "block",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 4294967292,
+                            "src": "681:5:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_magic_block",
+                              "typeString": "block"
+                            }
+                          },
+                          "id": 719,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "number",
+                          "nodeType": "MemberAccess",
+                          "src": "681:12:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": ">",
+                        "rightExpression": {
+                          "expression": {
+                            "id": 720,
+                            "name": "seed",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 705,
+                            "src": "696:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          },
+                          "id": 721,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "blockNumber",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 650,
+                          "src": "696:16:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "681:31:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      {
+                        "hexValue": "57616974206f6e65206d6f726520626c6f636b20746f206f70656e20746869732053656564",
+                        "id": 723,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": true,
+                        "kind": "string",
+                        "lValueRequested": false,
+                        "nodeType": "Literal",
+                        "src": "714:39:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_stringliteral_a7be9131946eccba807f7b6a78b007895320cd6bc9ad0a532100a3b2512d9b76",
+                          "typeString": "literal_string \"Wait one more block to open this Seed\""
+                        },
+                        "value": "Wait one more block to open this Seed"
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        },
+                        {
+                          "typeIdentifier": "t_stringliteral_a7be9131946eccba807f7b6a78b007895320cd6bc9ad0a532100a3b2512d9b76",
+                          "typeString": "literal_string \"Wait one more block to open this Seed\""
+                        }
+                      ],
+                      "id": 717,
+                      "name": "require",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [
+                        4294967278,
+                        4294967278
+                      ],
+                      "referencedDeclaration": 4294967278,
+                      "src": "673:7:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
+                        "typeString": "function (bool,string memory) pure"
+                      }
+                    },
+                    "id": 724,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "673:81:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 725,
+                  "nodeType": "ExpressionStatement",
+                  "src": "673:81:1"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 730,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "expression": {
+                            "id": 727,
+                            "name": "seed",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 705,
+                            "src": "777:4:1",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                              "typeString": "struct Random.Seed storage pointer"
+                            }
+                          },
+                          "id": 728,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "memberName": "blockNumber",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 650,
+                          "src": "777:16:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "+",
+                        "rightExpression": {
+                          "hexValue": "31",
+                          "id": 729,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "number",
+                          "lValueRequested": false,
+                          "nodeType": "Literal",
+                          "src": "796:1:1",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_rational_1_by_1",
+                            "typeString": "int_const 1"
+                          },
+                          "value": "1"
+                        },
+                        "src": "777:20:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 726,
+                      "name": "blockhash",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 4294967291,
+                      "src": "767:9:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_blockhash_view$_t_uint256_$returns$_t_bytes32_$",
+                        "typeString": "function (uint256) view returns (bytes32)"
+                      }
+                    },
+                    "id": 731,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "767:31:1",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "functionReturnParameters": 709,
+                  "id": 732,
+                  "nodeType": "Return",
+                  "src": "760:38:1"
+                }
+              ]
+            },
+            "id": 734,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "get",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 706,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 705,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 734,
+                  "src": "555:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 704,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 703,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "555:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "555:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "554:19:1"
+            },
+            "returnParameters": {
+              "id": 709,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 708,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 734,
+                  "src": "597:7:1",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 707,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "597:7:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "596:9:1"
+            },
+            "scope": 748,
+            "src": "542:261:1",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 746,
+              "nodeType": "Block",
+              "src": "850:31:1",
+              "statements": [
+                {
+                  "expression": {
+                    "id": 744,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "expression": {
+                        "id": 740,
+                        "name": "seed",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 737,
+                        "src": "856:4:1",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                          "typeString": "struct Random.Seed storage pointer"
+                        }
+                      },
+                      "id": 742,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "blockNumber",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 650,
+                      "src": "856:16:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "hexValue": "30",
+                      "id": 743,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "875:1:1",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "src": "856:20:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 745,
+                  "nodeType": "ExpressionStatement",
+                  "src": "856:20:1"
+                }
+              ]
+            },
+            "id": 747,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "reset",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 738,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 737,
+                  "mutability": "mutable",
+                  "name": "seed",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 747,
+                  "src": "822:17:1",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                    "typeString": "struct Random.Seed"
+                  },
+                  "typeName": {
+                    "id": 736,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 735,
+                      "name": "Seed",
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 651,
+                      "src": "822:4:1"
+                    },
+                    "referencedDeclaration": 651,
+                    "src": "822:4:1",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Seed_$651_storage_ptr",
+                      "typeString": "struct Random.Seed"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "821:19:1"
+            },
+            "returnParameters": {
+              "id": 739,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "850:0:1"
+            },
+            "scope": 748,
+            "src": "807:74:1",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 749,
+        "src": "91:793:1"
+      }
+    ],
+    "src": "32:852:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.3.4",
+  "updatedAt": "2021-03-12T10:09:10.135Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
